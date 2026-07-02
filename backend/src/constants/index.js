@@ -4,3 +4,4 @@ export * from "./listing.js";
 export * from "./messages.js";
 export * from "./rateLimit.js";
 export * from "./roles.js";
+export * from "./tenantProfile.js";

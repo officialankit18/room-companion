@@ -6,6 +6,7 @@
 - [ ] MongoDB
 - [x] Authentication
 - [x] Listings
+- [x] Tenant Profile
 - [ ] AI Compatibility
 - [ ] Interest Workflow
 - [ ] Chat

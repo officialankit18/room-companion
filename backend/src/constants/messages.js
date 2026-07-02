@@ -36,3 +36,9 @@ export const LISTING_MESSAGES = {
   IMAGES_REQUIRED: "At least one listing image is required",
   IMAGE_LIMIT_EXCEEDED: "Maximum 5 images are allowed",
 };
+
+export const TENANT_PROFILE_MESSAGES = {
+  UPSERTED: "Tenant profile saved successfully",
+  FETCHED: "Tenant profile fetched successfully",
+  NOT_FOUND: "Tenant profile not found",
+};
