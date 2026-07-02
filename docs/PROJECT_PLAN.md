@@ -15,6 +15,7 @@
 
 ## Frontend
 
+- [x] Frontend setup
 - [ ] Landing Page
 - [ ] Auth
 - [ ] Dashboards
