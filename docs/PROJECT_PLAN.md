@@ -4,7 +4,7 @@
 
 - [x] Project setup
 - [ ] MongoDB
-- [ ] Authentication
+- [x] Authentication
 - [ ] Listings
 - [ ] AI Compatibility
 - [ ] Interest Workflow
@@ -36,4 +36,3 @@
 - [ ] DB Schema
 - [ ] LLM Prompt Examples
 - [ ] System Design
-

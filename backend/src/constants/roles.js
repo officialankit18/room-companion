@@ -5,4 +5,4 @@ export const USER_ROLES = {
 };
 
 export const USER_ROLE_VALUES = Object.values(USER_ROLES);
-
+export const PUBLIC_REGISTER_ROLE_VALUES = [USER_ROLES.TENANT, USER_ROLES.OWNER];

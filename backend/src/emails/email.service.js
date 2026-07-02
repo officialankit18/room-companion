@@ -1,0 +1,33 @@
+import SibApiV3Sdk from "sib-api-v3-sdk";
+
+import { appConfig } from "../config/app.config.js";
+import { brevoEmailClient, brevoSender } from "../config/brevo.config.js";
+import { OTP_CONFIG } from "../constants/auth.js";
+import { verificationEmailTemplate } from "./verificationEmail.template.js";
+
+const canSendEmail = () =>
+  Boolean(process.env.BREVO_API_KEY && brevoSender.email);
+
+export const sendVerificationEmail = async ({ email, name, otp }) => {
+  if (!canSendEmail()) {
+    if (appConfig.nodeEnv !== "production") {
+      console.warn("Brevo credentials missing. Verification email skipped in development.");
+      return;
+    }
+
+    throw new Error("Email service is not configured");
+  }
+
+  const emailPayload = new SibApiV3Sdk.SendSmtpEmail();
+  emailPayload.sender = brevoSender;
+  emailPayload.to = [{ email, name }];
+  emailPayload.subject = "Verify your RoomCompanion account";
+  emailPayload.htmlContent = verificationEmailTemplate({
+    name,
+    otp,
+    expiresInMinutes: OTP_CONFIG.EXPIRES_IN_MINUTES,
+  });
+
+  await brevoEmailClient.sendTransacEmail(emailPayload);
+};
+
