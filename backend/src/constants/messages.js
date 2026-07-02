@@ -48,3 +48,16 @@ export const COMPATIBILITY_MESSAGES = {
   FETCHED: "Compatibility score fetched successfully",
   PROFILE_REQUIRED: "Tenant profile is required before compatibility scoring",
 };
+
+export const INTEREST_MESSAGES = {
+  CREATED: "Interest request sent successfully",
+  ACCEPTED: "Interest request accepted successfully",
+  DECLINED: "Interest request declined successfully",
+  TENANT_HISTORY_FETCHED: "Tenant interests fetched successfully",
+  OWNER_REQUESTS_FETCHED: "Owner interest requests fetched successfully",
+  NOT_FOUND: "Interest request not found",
+  DUPLICATE: "Interest request already exists for this listing",
+  OWN_LISTING: "Tenant cannot send interest to own listing",
+  FILLED_LISTING: "Filled listing cannot receive new interests",
+  INVALID_STATUS: "Only pending interest requests can be updated",
+};

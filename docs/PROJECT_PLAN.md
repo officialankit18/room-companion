@@ -8,7 +8,7 @@
 - [x] Listings
 - [x] Tenant Profile
 - [x] AI Compatibility
-- [ ] Interest Workflow
+- [x] Interest Workflow
 - [ ] Chat
 - [ ] Notifications
 - [ ] Admin

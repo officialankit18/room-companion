@@ -1,0 +1,8 @@
+export const INTEREST_STATUS = {
+  PENDING: "PENDING",
+  ACCEPTED: "ACCEPTED",
+  DECLINED: "DECLINED",
+};
+
+export const INTEREST_STATUS_VALUES = Object.values(INTEREST_STATUS);
+
