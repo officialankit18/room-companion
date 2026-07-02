@@ -18,3 +18,8 @@ export const VALIDATION_MESSAGES = {
   INVALID_REQUEST: "Invalid request data",
   INVALID_ID: "Invalid resource id",
 };
+
+export const SECURITY_MESSAGES = {
+  FORBIDDEN: "You do not have permission to perform this action",
+  TOO_MANY_REQUESTS: "Too many requests. Please try again later",
+};

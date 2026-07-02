@@ -1,0 +1,5 @@
+export const RATE_LIMITS = {
+  AUTH_WINDOW_MS: 60 * 1000,
+  AUTH_MAX_REQUESTS: 5,
+};
+
