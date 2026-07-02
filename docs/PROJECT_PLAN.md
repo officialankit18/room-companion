@@ -5,7 +5,7 @@
 - [x] Project setup
 - [ ] MongoDB
 - [x] Authentication
-- [ ] Listings
+- [x] Listings
 - [ ] AI Compatibility
 - [ ] Interest Workflow
 - [ ] Chat

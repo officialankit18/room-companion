@@ -6,6 +6,7 @@ import { globalErrorHandler, notFoundHandler } from "./middleware/error.middlewa
 import { requestLogger } from "./middleware/requestLogger.middleware.js";
 import authRoutes from "./routes/auth.routes.js";
 import healthRoutes from "./routes/health.routes.js";
+import listingRoutes from "./routes/listing.routes.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(requestLogger);
 
 app.use("/", healthRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/listings", listingRoutes);
 
 app.use(notFoundHandler);
 app.use(globalErrorHandler);

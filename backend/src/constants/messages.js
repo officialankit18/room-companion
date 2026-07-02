@@ -23,3 +23,16 @@ export const SECURITY_MESSAGES = {
   FORBIDDEN: "You do not have permission to perform this action",
   TOO_MANY_REQUESTS: "Too many requests. Please try again later",
 };
+
+export const LISTING_MESSAGES = {
+  CREATED: "Listing created successfully",
+  UPDATED: "Listing updated successfully",
+  FETCHED: "Listings fetched successfully",
+  DETAILS_FETCHED: "Listing details fetched successfully",
+  DELETED: "Listing removed successfully",
+  MARKED_FILLED: "Listing marked as filled successfully",
+  NOT_FOUND: "Listing not found",
+  OWNER_ONLY: "Only the listing owner can perform this action",
+  IMAGES_REQUIRED: "At least one listing image is required",
+  IMAGE_LIMIT_EXCEEDED: "Maximum 5 images are allowed",
+};
