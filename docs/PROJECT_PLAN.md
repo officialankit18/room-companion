@@ -16,6 +16,7 @@
 ## Frontend
 
 - [x] Frontend setup
+- [x] UI system
 - [ ] Landing Page
 - [ ] Auth
 - [ ] Dashboards

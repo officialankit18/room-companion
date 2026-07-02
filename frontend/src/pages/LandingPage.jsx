@@ -1,6 +1,8 @@
 import { ArrowRight, Brain, MessageSquare, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import { Badge, Button, Card } from "../components/ui";
+
 const highlights = [
   {
     icon: Search,
@@ -35,23 +37,26 @@ export function LandingPage() {
             high-intent, compatible tenants through requests, approvals, and secure chat.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
+            <Button
+              as={Link}
               to="/register"
-              className="focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] px-6 font-semibold text-white shadow-sm"
+              size="lg"
             >
               Get started
               <ArrowRight size={18} />
-            </Link>
-            <Link
+            </Button>
+            <Button
+              as={Link}
               to="/browse"
-              className="focus-ring inline-flex h-12 items-center justify-center rounded-xl border border-[var(--color-border)] bg-white px-6 font-semibold text-[var(--color-heading)]"
+              variant="secondary"
+              size="lg"
             >
               Browse listings
-            </Link>
+            </Button>
           </div>
         </div>
 
-        <div className="surface p-5">
+        <Card className="p-5">
           <div className="rounded-xl border border-[var(--color-border)] bg-[#f8fafc] p-5">
             <div className="aspect-[4/3] rounded-xl bg-white p-5 shadow-sm">
               <div className="h-44 rounded-xl bg-[linear-gradient(135deg,#4f46e5,#2563eb)]" />
@@ -60,31 +65,28 @@ export function LandingPage() {
                   <p className="font-semibold text-[var(--color-heading)]">Private Room in Noida</p>
                   <p className="mt-1 text-sm text-[var(--color-body)]">Sector 62 · ₹9,000/month</p>
                 </div>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-600">
-                  94% Match
-                </span>
+                <Badge variant="success">94% Match</Badge>
               </div>
               <p className="mt-4 text-sm leading-6 text-[var(--color-body)]">
                 Excellent location match and rent falls comfortably within the tenant budget.
               </p>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
 
       <div className="mt-14 grid gap-4 md:grid-cols-3">
         {highlights.map((item) => {
           const Icon = item.icon;
           return (
-            <article key={item.title} className="surface p-6">
+            <Card as="article" key={item.title}>
               <Icon className="text-[var(--color-primary)]" size={24} />
               <h2 className="mt-5 text-lg font-semibold text-[var(--color-heading)]">{item.title}</h2>
               <p className="mt-2 text-sm leading-6 text-[var(--color-body)]">{item.description}</p>
-            </article>
+            </Card>
           );
         })}
       </div>
     </section>
   );
 }
-
