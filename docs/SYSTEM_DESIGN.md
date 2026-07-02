@@ -1,0 +1,15 @@
+# System Design
+
+RoomCompanion is designed as a modular full-stack platform where the backend owns identity, listings, AI compatibility, interest approvals, realtime chat, notifications, and admin operations. The backend follows Clean MVC with a service layer: routes define endpoints and middleware, controllers coordinate request/response flow, services contain business logic, models contain Mongoose schemas, and providers isolate third-party systems such as Gemini, Cloudinary, and Brevo.
+
+Authentication uses email/password with OTP verification before login. Passwords are hashed with bcrypt, JWT contains only `userId` and `role`, and protected APIs pass through authentication plus role authorization. The system has three roles only: tenant, owner, and admin. Ownership checks are handled inside services so owners cannot modify other owners' listings and users cannot access conversations where they are not participants.
+
+The data model uses focused MongoDB collections instead of large embedded documents. Users, listings, tenant profiles, compatibility scores, interests, conversations, messages, and notifications are separate collections. This keeps documents lightweight and supports pagination, indexes, and future growth. Images are uploaded to Cloudinary and MongoDB stores only URLs and public IDs.
+
+Compatibility scoring is stored per tenant-listing pair. The compatibility service first checks the database and reuses an existing score. If no score exists, it calls the AI provider. Gemini 2.5 Flash receives structured tenant preferences and listing details and returns JSON containing a score and explanation. If Gemini fails, times out, or returns invalid JSON, the rule-based provider calculates a score using location, budget, and move-in date weights. This graceful fallback keeps the product functional even when the LLM is unavailable.
+
+The interest workflow separates discovery from communication. A tenant can send interest only for active listings, cannot send duplicates, and cannot request their own listing. Owners can accept or decline only requests for their own listings. Accepting an interest creates exactly one conversation for the tenant, owner, and listing. Declining does not create a conversation.
+
+Chat uses Socket.IO and is available only after acceptance. Every socket connection authenticates with JWT before joining user or conversation rooms. Messages are saved to MongoDB before being emitted, which prevents message loss. Messages are paginated through REST APIs, and the realtime layer handles delivery, typing, read receipts, unread counts, and offline email notification triggers. In-app notifications persist important events such as interest received, high compatibility, accept/decline decisions, and new messages.
+
+The admin module exposes controlled APIs for platform activity, users, and listings. Deployment targets are Hostinger for backend, Vercel for frontend, MongoDB Atlas for database, Cloudinary for images, Brevo for email, and Gemini for AI scoring.

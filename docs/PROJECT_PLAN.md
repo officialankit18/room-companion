@@ -3,7 +3,7 @@
 ## Backend
 
 - [x] Project setup
-- [ ] MongoDB
+- [x] MongoDB
 - [x] Authentication
 - [x] Listings
 - [x] Tenant Profile
@@ -26,14 +26,14 @@
 
 - [ ] Backend on Hostinger
 - [ ] Frontend on Vercel
-- [ ] MongoDB Atlas
-- [ ] Cloudinary
+- [x] MongoDB Atlas
+- [x] Cloudinary
 - [ ] Testing
 
 ## Documentation
 
-- [ ] README
-- [ ] API Docs
-- [ ] DB Schema
-- [ ] LLM Prompt Examples
-- [ ] System Design
+- [x] README
+- [x] API Docs
+- [x] DB Schema
+- [x] LLM Prompt Examples
+- [x] System Design
