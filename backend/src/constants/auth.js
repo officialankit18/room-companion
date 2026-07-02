@@ -1,0 +1,11 @@
+export const OTP_CONFIG = {
+  LENGTH: 6,
+  EXPIRES_IN_MINUTES: 5,
+  RESEND_COOLDOWN_SECONDS: 30,
+  MAX_ATTEMPTS: 5,
+};
+
+export const PASSWORD_POLICY = {
+  MIN_LENGTH: 8,
+};
+
