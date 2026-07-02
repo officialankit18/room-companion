@@ -5,6 +5,7 @@ import { appConfig } from "./config/app.config.js";
 import { globalErrorHandler, notFoundHandler } from "./middleware/error.middleware.js";
 import { requestLogger } from "./middleware/requestLogger.middleware.js";
 import authRoutes from "./routes/auth.routes.js";
+import compatibilityRoutes from "./routes/compatibility.routes.js";
 import healthRoutes from "./routes/health.routes.js";
 import listingRoutes from "./routes/listing.routes.js";
 import tenantProfileRoutes from "./routes/tenantProfile.routes.js";
@@ -23,6 +24,7 @@ app.use(requestLogger);
 
 app.use("/", healthRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/compatibility", compatibilityRoutes);
 app.use("/api/v1/listings", listingRoutes);
 app.use("/api/v1/tenant-profile", tenantProfileRoutes);
 

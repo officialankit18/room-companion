@@ -2,6 +2,7 @@ import { HTTP_STATUS } from "../constants/httpStatus.js";
 import { TENANT_PROFILE_MESSAGES } from "../constants/messages.js";
 import { TenantProfile } from "../models/TenantProfile.model.js";
 import { AppError } from "../utils/AppError.js";
+import { deleteCompatibilityForTenant } from "./compatibility.service.js";
 
 export const upsertTenantProfile = async ({ tenantId, body }) => {
   const profile = await TenantProfile.findOneAndUpdate(
@@ -27,6 +28,8 @@ export const upsertTenantProfile = async ({ tenantId, body }) => {
     }
   );
 
+  await deleteCompatibilityForTenant(tenantId);
+
   return profile;
 };
 
@@ -39,4 +42,3 @@ export const getTenantProfile = async (tenantId) => {
 
   return profile;
 };
-

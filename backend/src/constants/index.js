@@ -1,4 +1,5 @@
 export * from "./auth.js";
+export * from "./compatibility.js";
 export * from "./httpStatus.js";
 export * from "./listing.js";
 export * from "./messages.js";

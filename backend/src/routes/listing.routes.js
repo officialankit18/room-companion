@@ -6,6 +6,7 @@ import {
   fillOwnerListing,
   getListingDetails,
   listActiveListings,
+  listTenantMatchedListings,
   updateOwnerListing,
 } from "../controllers/listing.controller.js";
 import { USER_ROLES } from "../constants/roles.js";
@@ -23,6 +24,14 @@ import {
 const router = Router();
 
 router.get("/", listingQueryValidator, validateRequest, listActiveListings);
+router.get(
+  "/matches",
+  authenticate,
+  authorizeRoles(USER_ROLES.TENANT),
+  listingQueryValidator,
+  validateRequest,
+  listTenantMatchedListings
+);
 router.get("/:id", mongoIdParamValidator("id"), validateRequest, getListingDetails);
 
 router.post(
@@ -64,4 +73,3 @@ router.delete(
 );
 
 export default router;
-

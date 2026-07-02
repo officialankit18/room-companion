@@ -42,3 +42,9 @@ export const TENANT_PROFILE_MESSAGES = {
   FETCHED: "Tenant profile fetched successfully",
   NOT_FOUND: "Tenant profile not found",
 };
+
+export const COMPATIBILITY_MESSAGES = {
+  GENERATED: "Compatibility score generated successfully",
+  FETCHED: "Compatibility score fetched successfully",
+  PROFILE_REQUIRED: "Tenant profile is required before compatibility scoring",
+};

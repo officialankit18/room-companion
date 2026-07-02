@@ -4,6 +4,7 @@ import {
   createListing,
   getListingById,
   getListings,
+  getTenantMatchedListings,
   markListingFilled,
   removeListing,
   updateListing,
@@ -23,6 +24,15 @@ export const createOwnerListing = asyncHandler(async (req, res) => {
 
 export const listActiveListings = asyncHandler(async (req, res) => {
   const data = await getListings(req.query);
+
+  return sendSuccess(res, HTTP_STATUS.OK, LISTING_MESSAGES.FETCHED, data);
+});
+
+export const listTenantMatchedListings = asyncHandler(async (req, res) => {
+  const data = await getTenantMatchedListings({
+    tenantId: req.user.id,
+    query: req.query,
+  });
 
   return sendSuccess(res, HTTP_STATUS.OK, LISTING_MESSAGES.FETCHED, data);
 });
@@ -60,4 +70,3 @@ export const deleteOwnerListing = asyncHandler(async (req, res) => {
 
   return sendSuccess(res, HTTP_STATUS.OK, LISTING_MESSAGES.DELETED, { listing });
 });
-

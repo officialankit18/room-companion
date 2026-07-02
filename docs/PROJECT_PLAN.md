@@ -7,7 +7,7 @@
 - [x] Authentication
 - [x] Listings
 - [x] Tenant Profile
-- [ ] AI Compatibility
+- [x] AI Compatibility
 - [ ] Interest Workflow
 - [ ] Chat
 - [ ] Notifications

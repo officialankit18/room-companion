@@ -3,6 +3,7 @@ import { HTTP_STATUS } from "../constants/httpStatus.js";
 import { LISTING_MESSAGES } from "../constants/messages.js";
 import { Listing } from "../models/Listing.model.js";
 import { AppError } from "../utils/AppError.js";
+import { getOrCreateCompatibilityScore, deleteCompatibilityForListing } from "./compatibility.service.js";
 import { uploadMultipleImages } from "./cloudinary.service.js";
 
 const buildListingFilters = (query) => {
@@ -108,6 +109,33 @@ export const getListings = async (query) => {
   };
 };
 
+export const getTenantMatchedListings = async ({ tenantId, query }) => {
+  const data = await getListings(query);
+
+  const listingsWithCompatibility = await Promise.all(
+    data.listings.map(async (listing) => {
+      const compatibility = await getOrCreateCompatibilityScore({
+        tenantId,
+        listingId: listing._id,
+      });
+
+      return {
+        listing,
+        compatibility,
+      };
+    })
+  );
+
+  if (query.sort === "highestCompatibility") {
+    listingsWithCompatibility.sort((a, b) => b.compatibility.score - a.compatibility.score);
+  }
+
+  return {
+    listings: listingsWithCompatibility,
+    pagination: data.pagination,
+  };
+};
+
 export const getListingById = async (listingId) => {
   const listing = await Listing.findById(listingId).populate("ownerId", "name email profileImage");
 
@@ -146,10 +174,14 @@ export const updateListing = async ({ listingId, ownerId, body }) => {
 
   Object.keys(updates).forEach((key) => updates[key] === undefined && delete updates[key]);
 
-  return Listing.findByIdAndUpdate(listingId, updates, {
+  const updatedListing = await Listing.findByIdAndUpdate(listingId, updates, {
     new: true,
     runValidators: true,
   });
+
+  await deleteCompatibilityForListing(listingId);
+
+  return updatedListing;
 };
 
 export const markListingFilled = async ({ listingId, ownerId }) => {
@@ -179,4 +211,3 @@ export const removeListing = async ({ listingId, ownerId }) => {
 
   return listing;
 };
-

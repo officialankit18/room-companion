@@ -43,8 +43,7 @@ export const listingQueryValidator = [
   query("minRent").optional().isFloat({ min: 1 }),
   query("maxRent").optional().isFloat({ min: 1 }),
   query("availableFrom").optional().isISO8601(),
-  query("sort").optional().isIn(["newest", "lowestRent", "highestRent"]),
+  query("sort").optional().isIn(["newest", "lowestRent", "highestRent", "highestCompatibility"]),
   query("page").optional().isInt({ min: 1 }),
   query("limit").optional().isInt({ min: 1, max: LISTING_PAGINATION.MAX_LIMIT }),
 ];
-

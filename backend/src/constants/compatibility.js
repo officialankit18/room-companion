@@ -1,0 +1,19 @@
+export const COMPATIBILITY_SOURCE = {
+  AI: "AI",
+  RULE_BASED: "RULE_BASED",
+};
+
+export const COMPATIBILITY_SCORE = {
+  MIN: 0,
+  MAX: 100,
+  HIGH_MATCH_THRESHOLD: 80,
+};
+
+export const COMPATIBILITY_WEIGHTS = {
+  LOCATION: 50,
+  BUDGET: 40,
+  MOVE_IN: 10,
+};
+
+export const COMPATIBILITY_SOURCE_VALUES = Object.values(COMPATIBILITY_SOURCE);
+
