@@ -61,3 +61,12 @@ export const INTEREST_MESSAGES = {
   FILLED_LISTING: "Filled listing cannot receive new interests",
   INVALID_STATUS: "Only pending interest requests can be updated",
 };
+
+export const CONVERSATION_MESSAGES = {
+  FETCHED: "Conversations fetched successfully",
+  DETAILS_FETCHED: "Conversation details fetched successfully",
+  MESSAGES_FETCHED: "Messages fetched successfully",
+  MARKED_READ: "Conversation marked as read successfully",
+  NOT_FOUND: "Conversation not found",
+  ACCESS_DENIED: "You are not a participant in this conversation",
+};
