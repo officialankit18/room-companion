@@ -3,8 +3,10 @@ import http from "http";
 import app from "./app.js";
 import { appConfig } from "./config/app.config.js";
 import { connectDatabase } from "./config/database.config.js";
+import { initializeSocket } from "./sockets/index.js";
 
 const server = http.createServer(app);
+initializeSocket(server);
 
 const startServer = async () => {
   try {
@@ -20,4 +22,3 @@ const startServer = async () => {
 };
 
 startServer();
-

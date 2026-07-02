@@ -69,4 +69,5 @@ export const CONVERSATION_MESSAGES = {
   MARKED_READ: "Conversation marked as read successfully",
   NOT_FOUND: "Conversation not found",
   ACCESS_DENIED: "You are not a participant in this conversation",
+  INVALID_MESSAGE: "Message must be between 1 and 1000 characters",
 };

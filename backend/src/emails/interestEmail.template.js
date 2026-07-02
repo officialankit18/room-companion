@@ -24,3 +24,11 @@ export const interestDecisionTemplate = ({ tenantName, listingTitle, status }) =
   </div>
 `;
 
+export const offlineMessageTemplate = ({ receiverName, senderName, listingTitle }) => `
+  <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111827">
+    <h2>New message on RoomCompanion</h2>
+    <p>Hello ${receiverName},</p>
+    <p>${senderName} sent you a new message regarding <strong>${listingTitle}</strong>.</p>
+    <p>Open RoomCompanion to continue chatting.</p>
+  </div>
+`;

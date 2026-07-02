@@ -6,6 +6,7 @@ import { OTP_CONFIG } from "../constants/auth.js";
 import {
   highCompatibilityInterestTemplate,
   interestDecisionTemplate,
+  offlineMessageTemplate,
 } from "./interestEmail.template.js";
 import { verificationEmailTemplate } from "./verificationEmail.template.js";
 
@@ -73,5 +74,16 @@ export const sendInterestDecisionEmail = async (payload) => {
     },
     subject: `Your RoomCompanion request was ${payload.status.toLowerCase()}`,
     htmlContent: interestDecisionTemplate(payload),
+  });
+};
+
+export const sendOfflineMessageEmail = async (payload) => {
+  await sendHtmlEmail({
+    to: {
+      email: payload.receiverEmail,
+      name: payload.receiverName,
+    },
+    subject: "New message on RoomCompanion",
+    htmlContent: offlineMessageTemplate(payload),
   });
 };
