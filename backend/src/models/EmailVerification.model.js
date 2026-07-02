@@ -16,7 +16,6 @@ const emailVerificationSchema = new mongoose.Schema(
     expiresAt: {
       type: Date,
       required: true,
-      index: true,
     },
     attemptCount: {
       type: Number,
@@ -40,4 +39,3 @@ export const EmailVerification = mongoose.model(
   "EmailVerification",
   emailVerificationSchema
 );
-
