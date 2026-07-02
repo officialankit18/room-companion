@@ -4,6 +4,7 @@ import express from "express";
 import { appConfig } from "./config/app.config.js";
 import { globalErrorHandler, notFoundHandler } from "./middleware/error.middleware.js";
 import { requestLogger } from "./middleware/requestLogger.middleware.js";
+import adminRoutes from "./routes/admin.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import compatibilityRoutes from "./routes/compatibility.routes.js";
 import conversationRoutes from "./routes/conversation.routes.js";
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 app.use("/", healthRoutes);
+app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/compatibility", compatibilityRoutes);
 app.use("/api/v1/conversations", conversationRoutes);

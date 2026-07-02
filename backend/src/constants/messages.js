@@ -78,3 +78,14 @@ export const NOTIFICATION_MESSAGES = {
   ALL_MARKED_READ: "All notifications marked as read successfully",
   NOT_FOUND: "Notification not found",
 };
+
+export const ADMIN_MESSAGES = {
+  USERS_FETCHED: "Users fetched successfully",
+  USER_UPDATED: "User updated successfully",
+  LISTINGS_FETCHED: "Listings fetched successfully",
+  LISTING_UPDATED: "Listing updated successfully",
+  ACTIVITY_FETCHED: "Platform activity fetched successfully",
+  USER_NOT_FOUND: "User not found",
+  LISTING_NOT_FOUND: "Listing not found",
+  CANNOT_DISABLE_SELF: "Admin cannot disable their own account",
+};

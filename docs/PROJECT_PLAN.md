@@ -11,7 +11,7 @@
 - [x] Interest Workflow
 - [x] Chat
 - [x] Notifications
-- [ ] Admin
+- [x] Admin
 
 ## Frontend
 
