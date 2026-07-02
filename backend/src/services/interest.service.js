@@ -3,6 +3,7 @@ import { HTTP_STATUS } from "../constants/httpStatus.js";
 import { INTEREST_STATUS } from "../constants/interest.js";
 import { LISTING_STATUS } from "../constants/listing.js";
 import { INTEREST_MESSAGES, LISTING_MESSAGES } from "../constants/messages.js";
+import { NOTIFICATION_TYPES } from "../constants/notification.js";
 import { Conversation } from "../models/Conversation.model.js";
 import { Interest } from "../models/Interest.model.js";
 import { Listing } from "../models/Listing.model.js";
@@ -12,6 +13,7 @@ import {
   sendInterestDecisionEmail,
 } from "../emails/email.service.js";
 import { getOrCreateCompatibilityScore } from "./compatibility.service.js";
+import { createNotification } from "./notification.service.js";
 
 const interestPopulate = [
   { path: "tenantId", select: "name email profileImage" },
@@ -58,7 +60,32 @@ export const sendInterestRequest = async ({ tenantId, listingId }) => {
 
   const populatedInterest = await Interest.findById(interest._id).populate(interestPopulate);
 
+  await createNotification({
+    userId: listing.ownerId._id,
+    type: NOTIFICATION_TYPES.INTEREST_RECEIVED,
+    title: "New interest request",
+    description: `${populatedInterest.tenantId.name} is interested in ${listing.title}.`,
+    metadata: {
+      interestId: interest._id,
+      listingId,
+      tenantId,
+    },
+  });
+
   if (compatibility.score >= COMPATIBILITY_SCORE.HIGH_MATCH_THRESHOLD) {
+    await createNotification({
+      userId: listing.ownerId._id,
+      type: NOTIFICATION_TYPES.HIGH_MATCH,
+      title: "High compatibility match",
+      description: `${populatedInterest.tenantId.name} has a ${compatibility.score}% compatibility score for ${listing.title}.`,
+      metadata: {
+        interestId: interest._id,
+        listingId,
+        tenantId,
+        score: compatibility.score,
+      },
+    });
+
     await sendEmailSafely(() =>
       sendHighCompatibilityInterestEmail({
         ownerEmail: listing.ownerId.email,
@@ -126,6 +153,18 @@ export const acceptInterestRequest = async ({ ownerId, interestId }) => {
     })
   );
 
+  await createNotification({
+    userId: interest.tenantId._id,
+    type: NOTIFICATION_TYPES.INTEREST_ACCEPTED,
+    title: "Interest accepted",
+    description: `Your request for ${interest.listingId.title} was accepted.`,
+    metadata: {
+      interestId,
+      conversationId: conversation._id,
+      listingId: interest.listingId._id,
+    },
+  });
+
   return {
     interest,
     conversation,
@@ -159,6 +198,16 @@ export const declineInterestRequest = async ({ ownerId, interestId }) => {
     })
   );
 
+  await createNotification({
+    userId: interest.tenantId._id,
+    type: NOTIFICATION_TYPES.INTEREST_DECLINED,
+    title: "Interest declined",
+    description: `Your request for ${interest.listingId.title} was declined.`,
+    metadata: {
+      interestId,
+      listingId: interest.listingId._id,
+    },
+  });
+
   return interest;
 };
-

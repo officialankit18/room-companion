@@ -5,6 +5,7 @@ export * from "./interest.js";
 export * from "./listing.js";
 export * from "./message.js";
 export * from "./messages.js";
+export * from "./notification.js";
 export * from "./rateLimit.js";
 export * from "./roles.js";
 export * from "./tenantProfile.js";

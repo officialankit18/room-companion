@@ -1,5 +1,6 @@
 import { MESSAGE_LIMITS, MESSAGE_STATUS } from "../constants/message.js";
 import { CONVERSATION_MESSAGES } from "../constants/messages.js";
+import { NOTIFICATION_TYPES } from "../constants/notification.js";
 import { USER_ROLES } from "../constants/roles.js";
 import { Conversation } from "../models/Conversation.model.js";
 import { Message } from "../models/Message.model.js";
@@ -7,6 +8,7 @@ import { AppError } from "../utils/AppError.js";
 import { HTTP_STATUS } from "../constants/httpStatus.js";
 import { sendOfflineMessageEmail } from "../emails/email.service.js";
 import { getConversationDetails } from "./conversation.service.js";
+import { createNotification } from "./notification.service.js";
 
 const getReceiverId = (conversation, senderId) => {
   const isTenant = conversation.tenantId._id.toString() === senderId;
@@ -57,6 +59,17 @@ export const createMessage = async ({ conversationId, senderId, message, receive
     .populate("receiverId", "name email profileImage");
 
   if (sendOfflineEmail) {
+    await createNotification({
+      userId: receiverId,
+      type: NOTIFICATION_TYPES.NEW_MESSAGE,
+      title: "New message",
+      description: `${populatedMessage.senderId.name} sent you a new message.`,
+      metadata: {
+        conversationId,
+        messageId: populatedMessage._id,
+      },
+    });
+
     sendOfflineMessageEmail({
       receiverEmail: populatedMessage.receiverId.email,
       receiverName: populatedMessage.receiverId.name,
@@ -110,4 +123,3 @@ export const markMessagesRead = async ({ conversationId, userId, role }) => {
   await conversation.save();
   return conversation;
 };
-

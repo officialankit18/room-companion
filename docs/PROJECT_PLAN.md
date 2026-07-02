@@ -10,7 +10,7 @@
 - [x] AI Compatibility
 - [x] Interest Workflow
 - [x] Chat
-- [ ] Notifications
+- [x] Notifications
 - [ ] Admin
 
 ## Frontend

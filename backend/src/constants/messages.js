@@ -71,3 +71,10 @@ export const CONVERSATION_MESSAGES = {
   ACCESS_DENIED: "You are not a participant in this conversation",
   INVALID_MESSAGE: "Message must be between 1 and 1000 characters",
 };
+
+export const NOTIFICATION_MESSAGES = {
+  FETCHED: "Notifications fetched successfully",
+  MARKED_READ: "Notification marked as read successfully",
+  ALL_MARKED_READ: "All notifications marked as read successfully",
+  NOT_FOUND: "Notification not found",
+};

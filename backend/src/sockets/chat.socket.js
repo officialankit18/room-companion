@@ -73,6 +73,11 @@ export const registerChatSocketHandlers = (io, socket) => {
 
       io.to(conversationRoom(conversationId)).emit("newMessage", savedMessage);
       io.to(userRoom(receiverId)).emit("newMessage", savedMessage);
+      io.to(userRoom(receiverId)).emit("notification", {
+        type: "NEW_MESSAGE",
+        conversationId,
+        messageId: savedMessage._id,
+      });
     } catch (error) {
       emitSocketError(socket, error.message);
     }
@@ -113,4 +118,3 @@ export const registerChatSocketHandlers = (io, socket) => {
     removeOnlineUser(userId, socket.id);
   });
 };
-
