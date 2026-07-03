@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 
 import { interestApi } from "../../api/interestApi";
 import { listingApi } from "../../api/listingApi";
+import { GoogleMapsLink } from "../../components/location/GoogleMapsLink";
 import { Badge, Button, Card, EmptyState, Input, PageHeader, Select, Spinner } from "../../components/ui";
 
 const scoreVariant = (score) => {
@@ -103,9 +104,12 @@ export function TenantMatchesPage() {
                   <p className="mt-4 text-sm leading-6 text-[var(--color-body)]">{compatibility.explanation}</p>
                   <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                     <p className="text-lg font-bold text-[var(--color-heading)]">Rs. {listing.rent}/mo</p>
-                    <Button type="button" onClick={() => sendInterest(listing._id)}>
-                      <HeartHandshake size={18} /> Interested
-                    </Button>
+                    <div className="flex flex-wrap gap-2">
+                      <GoogleMapsLink location={listing.location} />
+                      <Button type="button" onClick={() => sendInterest(listing._id)}>
+                        <HeartHandshake size={18} /> Interested
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -1,36 +1,68 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Plus, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 import { listingApi } from "../../api/listingApi";
+import { PropertyLocationPicker } from "../../components/location/PropertyLocationPicker";
 import { Button, Card, EmptyState, Input, PageHeader, Select, Spinner, Textarea } from "../../components/ui";
 import { listingSchema } from "../../schemas/listingSchema";
+
+const emptyLocation = {
+  displayAddress: "",
+  city: "",
+  locality: "",
+  state: "",
+  country: "",
+  pincode: "",
+  latitude: null,
+  longitude: null,
+};
 
 export function OwnerListingsPage() {
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState([]);
+  const [propertyLocation, setPropertyLocation] = useState(emptyLocation);
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(listingSchema),
     defaultValues: {
       title: "",
       description: "",
+      flatNumber: "",
+      building: "",
+      landmark: "",
+      displayAddress: "",
       city: "",
       locality: "",
-      address: "",
+      state: "",
+      country: "",
+      pincode: "",
+      latitude: null,
+      longitude: null,
       rent: "",
       availableFrom: "",
       roomType: "Private Room",
       furnishingStatus: "Fully Furnished",
     },
   });
+
+  const handleLocationChange = useCallback(
+    (location) => {
+      setPropertyLocation(location);
+      Object.entries(location).forEach(([field, value]) => {
+        setValue(field, value ?? "", { shouldDirty: true, shouldValidate: true });
+      });
+    },
+    [setValue]
+  );
 
   const loadListings = async () => {
     setIsLoading(true);
@@ -63,6 +95,7 @@ export function OwnerListingsPage() {
       toast.success("Listing created");
       reset();
       setImages([]);
+      setPropertyLocation(emptyLocation);
       loadListings();
     } catch (error) {
       toast.error(error.message);
@@ -101,9 +134,34 @@ export function OwnerListingsPage() {
         <form className="grid gap-4 md:grid-cols-2" onSubmit={handleSubmit(onSubmit)}>
           <Input label="Title" {...register("title")} error={errors.title?.message} />
           <Input label="Rent" type="number" {...register("rent")} error={errors.rent?.message} />
-          <Input label="City" {...register("city")} error={errors.city?.message} />
-          <Input label="Locality" {...register("locality")} error={errors.locality?.message} />
-          <Input label="Address" {...register("address")} error={errors.address?.message} />
+          <PropertyLocationPicker
+            error={
+              errors.displayAddress?.message ||
+              errors.latitude?.message ||
+              errors.longitude?.message
+            }
+            location={propertyLocation}
+            onChange={handleLocationChange}
+          />
+          {[
+            "displayAddress",
+            "city",
+            "locality",
+            "state",
+            "country",
+            "pincode",
+            "latitude",
+            "longitude",
+          ].map((field) => (
+            <input key={field} type="hidden" {...register(field)} />
+          ))}
+          <Input
+            label="Flat / House Number"
+            {...register("flatNumber")}
+            error={errors.flatNumber?.message}
+          />
+          <Input label="Building / Tower (Optional)" {...register("building")} />
+          <Input label="Landmark (Optional)" {...register("landmark")} />
           <Input label="Available from" type="date" {...register("availableFrom")} error={errors.availableFrom?.message} />
           <Select label="Room type" {...register("roomType")} error={errors.roomType?.message}>
             <option value="Private Room">Private Room</option>

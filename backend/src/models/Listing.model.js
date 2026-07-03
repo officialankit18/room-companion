@@ -61,6 +61,53 @@ const listingSchema = new mongoose.Schema(
         trim: true,
         default: null,
       },
+      flatNumber: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      building: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      landmark: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      displayAddress: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      state: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      country: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      pincode: {
+        type: String,
+        trim: true,
+        default: null,
+      },
+      latitude: {
+        type: Number,
+        min: -90,
+        max: 90,
+        default: null,
+      },
+      longitude: {
+        type: Number,
+        min: -180,
+        max: 180,
+        default: null,
+      },
     },
     rent: {
       type: Number,
@@ -105,8 +152,8 @@ const listingSchema = new mongoose.Schema(
 );
 
 listingSchema.index({ "location.city": 1, status: 1 });
+listingSchema.index({ "location.latitude": 1, "location.longitude": 1 });
 listingSchema.index({ rent: 1, status: 1 });
 listingSchema.index({ createdAt: -1 });
 
 export const Listing = mongoose.model("Listing", listingSchema);
-

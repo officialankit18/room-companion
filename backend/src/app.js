@@ -11,6 +11,7 @@ import conversationRoutes from "./routes/conversation.routes.js";
 import healthRoutes from "./routes/health.routes.js";
 import interestRoutes from "./routes/interest.routes.js";
 import listingRoutes from "./routes/listing.routes.js";
+import locationRoutes from "./routes/location.routes.js";
 import notificationRoutes from "./routes/notification.routes.js";
 import tenantProfileRoutes from "./routes/tenantProfile.routes.js";
 
@@ -33,6 +34,7 @@ app.use("/api/v1/compatibility", compatibilityRoutes);
 app.use("/api/v1/conversations", conversationRoutes);
 app.use("/api/v1/interests", interestRoutes);
 app.use("/api/v1/listings", listingRoutes);
+app.use("/api/v1/locations", locationRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
 app.use("/api/v1/tenant-profile", tenantProfileRoutes);
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { listingApi } from "../api/listingApi";
+import { GoogleMapsLink } from "../components/location/GoogleMapsLink";
 import { Badge, Button, Card, EmptyState, Input, PageHeader, Select, Spinner } from "../components/ui";
 
 const fallbackListings = [
@@ -129,9 +130,7 @@ export function BrowseListingsPage() {
                 </div>
                 <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                   <p className="text-lg font-bold text-[var(--color-heading)]">Rs. {listing.rent}/mo</p>
-                  <Button variant="secondary" size="sm" type="button">
-                    View
-                  </Button>
+                  <GoogleMapsLink location={listing.location} />
                 </div>
               </div>
             </Card>

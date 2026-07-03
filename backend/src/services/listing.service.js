@@ -68,7 +68,16 @@ export const createListing = async ({ ownerId, body, files }) => {
     location: {
       city: body.city,
       locality: body.locality,
-      address: body.address || null,
+      address: body.displayAddress,
+      flatNumber: body.flatNumber,
+      building: body.building || null,
+      landmark: body.landmark || null,
+      displayAddress: body.displayAddress,
+      state: body.state,
+      country: body.country,
+      pincode: body.pincode || null,
+      latitude: Number(body.latitude),
+      longitude: Number(body.longitude),
     },
     rent: Number(body.rent),
     availableFrom: body.availableFrom,
@@ -164,11 +173,28 @@ export const updateListing = async ({ listingId, ownerId, body }) => {
     furnishingStatus: body.furnishingStatus,
   };
 
-  if (body.city || body.locality || body.address) {
+  if (
+    body.city ||
+    body.locality ||
+    body.displayAddress ||
+    body.latitude !== undefined ||
+    body.longitude !== undefined
+  ) {
     updates.location = {
       city: body.city || listing.location.city,
       locality: body.locality || listing.location.locality,
-      address: body.address ?? listing.location.address,
+      address: body.displayAddress ?? body.address ?? listing.location.address,
+      flatNumber: body.flatNumber ?? listing.location.flatNumber,
+      building: body.building ?? listing.location.building,
+      landmark: body.landmark ?? listing.location.landmark,
+      displayAddress: body.displayAddress ?? listing.location.displayAddress,
+      state: body.state ?? listing.location.state,
+      country: body.country ?? listing.location.country,
+      pincode: body.pincode ?? listing.location.pincode,
+      latitude:
+        body.latitude !== undefined ? Number(body.latitude) : listing.location.latitude,
+      longitude:
+        body.longitude !== undefined ? Number(body.longitude) : listing.location.longitude,
     };
   }
 
