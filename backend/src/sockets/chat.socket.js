@@ -21,8 +21,15 @@ const emitSocketError = (socket, message) => {
 export const registerChatSocketHandlers = (io, socket) => {
   const userId = socket.user.id;
 
-  addOnlineUser(userId, socket.id);
+  const becameOnline = addOnlineUser(userId, socket.id);
   socket.join(userRoom(userId));
+  if (becameOnline) {
+    io.emit("userOnline", { userId });
+  }
+
+  socket.on("checkOnlineStatus", ({ userId: requestedUserId }, acknowledge) => {
+    acknowledge?.({ userId: requestedUserId, isOnline: isUserOnline(requestedUserId) });
+  });
 
   socket.on("joinConversation", async ({ conversationId }) => {
     try {
@@ -106,7 +113,11 @@ export const registerChatSocketHandlers = (io, socket) => {
         userId,
         role: socket.user.role,
       });
-      io.to(conversationRoom(conversationId)).emit("messageRead", {
+      const senderId =
+        conversation.tenantId.toString() === userId
+          ? conversation.ownerId.toString()
+          : conversation.tenantId.toString();
+      io.to(userRoom(senderId)).emit("messageRead", {
         conversationId,
         userId,
         conversation,
@@ -117,6 +128,9 @@ export const registerChatSocketHandlers = (io, socket) => {
   });
 
   socket.on("disconnect", () => {
-    removeOnlineUser(userId, socket.id);
+    const becameOffline = removeOnlineUser(userId, socket.id);
+    if (becameOffline) {
+      io.emit("userOffline", { userId });
+    }
   });
 };

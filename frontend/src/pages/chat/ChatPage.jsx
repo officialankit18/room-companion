@@ -1,4 +1,4 @@
-import { Send, Wifi, WifiOff } from "lucide-react";
+import { Check, CheckCheck, Send, Wifi, WifiOff } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -18,6 +18,7 @@ export function ChatPage() {
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
   const selectedConversationIdRef = useRef(null);
+  const otherParticipantIdRef = useRef(null);
   const [conversations, setConversations] = useState([]);
   const [selectedConversationId, setSelectedConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -25,6 +26,7 @@ export function ChatPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMessagesLoading, setIsMessagesLoading] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
+  const [isOtherParticipantOnline, setIsOtherParticipantOnline] = useState(false);
   const [typingUser, setTypingUser] = useState(null);
 
   const selectedConversation = useMemo(
@@ -32,10 +34,12 @@ export function ChatPage() {
     [conversations, selectedConversationId]
   );
   const otherParticipant = getOtherParticipant(selectedConversation, user);
+  const otherParticipantId = otherParticipant?._id || otherParticipant?.id;
 
   useEffect(() => {
     selectedConversationIdRef.current = selectedConversationId;
-  }, [selectedConversationId]);
+    otherParticipantIdRef.current = otherParticipantId;
+  }, [otherParticipantId, selectedConversationId]);
 
   useEffect(() => {
     const loadConversations = async () => {
@@ -73,6 +77,23 @@ export function ChatPage() {
           }
           return [...currentMessages, message];
         });
+
+        const senderId = message.senderId?._id || message.senderId;
+        if (senderId !== user.id && document.visibilityState === "visible") {
+          socket.emit("messageRead", {
+            conversationId: selectedConversationIdRef.current,
+          });
+        }
+      }
+    });
+    socket.on("userOnline", ({ userId }) => {
+      if (userId === otherParticipantIdRef.current) {
+        setIsOtherParticipantOnline(true);
+      }
+    });
+    socket.on("userOffline", ({ userId }) => {
+      if (userId === otherParticipantIdRef.current) {
+        setIsOtherParticipantOnline(false);
       }
     });
     socket.on("typing", ({ userId }) => {
@@ -103,6 +124,15 @@ export function ChatPage() {
   useEffect(() => {
     if (!selectedConversationId || !socketRef.current) return;
 
+    setIsOtherParticipantOnline(false);
+    if (otherParticipantId) {
+      socketRef.current.emit(
+        "checkOnlineStatus",
+        { userId: otherParticipantId },
+        ({ isOnline }) => setIsOtherParticipantOnline(isOnline)
+      );
+    }
+
     const loadMessages = async () => {
       setIsMessagesLoading(true);
       try {
@@ -123,7 +153,24 @@ export function ChatPage() {
     return () => {
       socketRef.current?.emit("leaveConversation", { conversationId: selectedConversationId });
     };
-  }, [selectedConversationId]);
+  }, [otherParticipantId, selectedConversationId]);
+
+  useEffect(() => {
+    const markVisibleConversationRead = () => {
+      if (
+        document.visibilityState === "visible" &&
+        selectedConversationIdRef.current &&
+        socketRef.current
+      ) {
+        socketRef.current.emit("messageRead", {
+          conversationId: selectedConversationIdRef.current,
+        });
+      }
+    };
+
+    document.addEventListener("visibilitychange", markVisibleConversationRead);
+    return () => document.removeEventListener("visibilitychange", markVisibleConversationRead);
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -223,6 +270,15 @@ export function ChatPage() {
               <h2 className="font-semibold text-[var(--color-heading)]">
                 {otherParticipant?.name || "Conversation"}
               </h2>
+              <p
+                className={`mt-1 text-xs font-medium ${
+                  isOtherParticipantOnline
+                    ? "text-[var(--color-success)]"
+                    : "text-[var(--color-muted)]"
+                }`}
+              >
+                {isOtherParticipantOnline ? "Online" : "Offline"}
+              </p>
               <p className="mt-1 line-clamp-2 text-sm text-[var(--color-body)]">
                 {selectedConversation?.listingId?.title}
               </p>
@@ -246,12 +302,26 @@ export function ChatPage() {
                         ].join(" ")}
                       >
                         <p>{message.message}</p>
-                        <p className={`mt-1 text-[11px] ${isOwn ? "text-indigo-100" : "text-[var(--color-muted)]"}`}>
+                        <p
+                          className={`mt-1 flex items-center justify-end gap-1 text-[11px] ${
+                            isOwn ? "text-indigo-100" : "text-[var(--color-muted)]"
+                          }`}
+                        >
                           {new Date(message.createdAt).toLocaleTimeString([], {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
-                          {isOwn ? ` / ${message.isRead ? "Read" : message.status}` : ""}
+                          {isOwn ? (
+                            message.isRead || message.status === "READ" ? (
+                              <CheckCheck
+                                aria-label="Read"
+                                className="text-sky-300"
+                                size={16}
+                              />
+                            ) : (
+                              <Check aria-label="Sent" size={15} />
+                            )
+                          ) : null}
                         </p>
                       </div>
                     </div>
