@@ -8,6 +8,7 @@ import { useAuth } from "../hooks/useAuth";
 const navByRole = {
   [USER_ROLES.TENANT]: [
     { label: "Dashboard", to: "/tenant" },
+    { label: "Profile", to: "/tenant/profile" },
     { label: "Matches", to: "/tenant/matches" },
     { label: "Interests", to: "/tenant/interests" },
     { label: "Chat", to: "/tenant/chat" },
@@ -84,4 +85,3 @@ export function DashboardLayout() {
     </div>
   );
 }
-

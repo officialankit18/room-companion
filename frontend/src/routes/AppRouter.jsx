@@ -11,6 +11,10 @@ import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from "../pages/LoginPage";
 import { PlaceholderPage } from "../pages/PlaceholderPage";
 import { RegisterPage } from "../pages/RegisterPage";
+import { TenantDashboardPage } from "../pages/tenant/TenantDashboardPage";
+import { TenantInterestsPage } from "../pages/tenant/TenantInterestsPage";
+import { TenantMatchesPage } from "../pages/tenant/TenantMatchesPage";
+import { TenantProfilePage } from "../pages/tenant/TenantProfilePage";
 import { VerifyEmailPage } from "../pages/VerifyEmailPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -38,19 +42,17 @@ export function AppRouter() {
             <Route element={<DashboardLayout />}>
               <Route
                 path="/tenant"
-                element={
-                  <DashboardPlaceholder
-                    title="Tenant dashboard"
-                    description="Manage your profile, browse AI-ranked rooms, track interests, and chat with accepted owners."
-                  />
-                }
+                element={<TenantDashboardPage />}
               />
+              <Route path="/tenant/profile" element={<TenantProfilePage />} />
+              <Route path="/tenant/matches" element={<TenantMatchesPage />} />
+              <Route path="/tenant/interests" element={<TenantInterestsPage />} />
               <Route
-                path="/tenant/*"
+                path="/tenant/chat"
                 element={
                   <DashboardPlaceholder
-                    title="Tenant workspace"
-                    description="Tenant feature screens will be built in the tenant dashboard phase."
+                    title="Tenant chat"
+                    description="Realtime chat will be connected in the chat frontend phase."
                   />
                 }
               />

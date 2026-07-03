@@ -7,5 +7,8 @@ export const listingApi = {
   getListing(id) {
     return apiClient.get(`/listings/${id}`);
   },
+  getMatchedListings(params) {
+    return apiClient.get("/listings/matches", { params });
+  },
 };
 

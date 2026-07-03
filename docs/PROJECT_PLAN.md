@@ -20,6 +20,7 @@
 - [x] API layer and auth state
 - [x] Landing Page
 - [x] Auth
+- [x] Tenant Dashboard
 - [ ] Dashboards
 - [ ] Listings
 - [ ] Chat
