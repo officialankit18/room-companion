@@ -4,6 +4,9 @@ import { AuthProvider } from "../auth/AuthContext";
 import { USER_ROLES } from "../constants/roles";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
+import { AdminDashboardPage } from "../pages/admin/AdminDashboardPage";
+import { AdminListingsPage } from "../pages/admin/AdminListingsPage";
+import { AdminUsersPage } from "../pages/admin/AdminUsersPage";
 import { AboutPage } from "../pages/AboutPage";
 import { BrowseListingsPage } from "../pages/BrowseListingsPage";
 import { ChatPage } from "../pages/chat/ChatPage";
@@ -80,22 +83,10 @@ export function AppRouter() {
             <Route element={<DashboardLayout />}>
               <Route
                 path="/admin"
-                element={
-                  <DashboardPlaceholder
-                    title="Admin dashboard"
-                    description="Monitor platform activity, users, and listings from one workspace."
-                  />
-                }
+                element={<AdminDashboardPage />}
               />
-              <Route
-                path="/admin/*"
-                element={
-                  <DashboardPlaceholder
-                    title="Admin workspace"
-                    description="Admin feature screens will be built in the admin dashboard phase."
-                  />
-                }
-              />
+              <Route path="/admin/users" element={<AdminUsersPage />} />
+              <Route path="/admin/listings" element={<AdminListingsPage />} />
               <Route path="/admin/notifications" element={<NotificationsPage />} />
             </Route>
           </Route>

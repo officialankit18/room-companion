@@ -22,7 +22,8 @@
 - [x] Auth
 - [x] Tenant Dashboard
 - [x] Owner Dashboard
-- [ ] Dashboards
+- [x] Admin Dashboard
+- [x] Dashboards
 - [x] Listings
 - [x] Chat
 - [x] Notifications
