@@ -7,7 +7,7 @@ import { socketAuthMiddleware } from "./socketAuth.middleware.js";
 export const initializeSocket = (server) => {
   const io = new Server(server, {
     cors: {
-      origin: appConfig.frontendUrl,
+      origin: appConfig.frontendUrls,
       credentials: true,
     },
   });
@@ -20,4 +20,3 @@ export const initializeSocket = (server) => {
 
   return io;
 };
-
