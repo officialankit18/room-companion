@@ -21,8 +21,9 @@
 - [x] Landing Page
 - [x] Auth
 - [x] Tenant Dashboard
+- [x] Owner Dashboard
 - [ ] Dashboards
-- [ ] Listings
+- [x] Listings
 - [ ] Chat
 - [ ] Notifications
 

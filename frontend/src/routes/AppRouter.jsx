@@ -9,6 +9,9 @@ import { BrowseListingsPage } from "../pages/BrowseListingsPage";
 import { DashboardPlaceholder } from "../pages/DashboardPlaceholder";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from "../pages/LoginPage";
+import { OwnerDashboardPage } from "../pages/owner/OwnerDashboardPage";
+import { OwnerListingsPage } from "../pages/owner/OwnerListingsPage";
+import { OwnerRequestsPage } from "../pages/owner/OwnerRequestsPage";
 import { PlaceholderPage } from "../pages/PlaceholderPage";
 import { RegisterPage } from "../pages/RegisterPage";
 import { TenantDashboardPage } from "../pages/tenant/TenantDashboardPage";
@@ -63,19 +66,16 @@ export function AppRouter() {
             <Route element={<DashboardLayout />}>
               <Route
                 path="/owner"
-                element={
-                  <DashboardPlaceholder
-                    title="Owner dashboard"
-                    description="Manage listings, review interested tenants, approve requests, and chat after acceptance."
-                  />
-                }
+                element={<OwnerDashboardPage />}
               />
+              <Route path="/owner/listings" element={<OwnerListingsPage />} />
+              <Route path="/owner/requests" element={<OwnerRequestsPage />} />
               <Route
-                path="/owner/*"
+                path="/owner/chat"
                 element={
                   <DashboardPlaceholder
-                    title="Owner workspace"
-                    description="Owner feature screens will be built in the owner dashboard phase."
+                    title="Owner chat"
+                    description="Realtime chat will be connected in the chat frontend phase."
                   />
                 }
               />
