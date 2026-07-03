@@ -17,6 +17,7 @@
 
 - [x] Frontend setup
 - [x] UI system
+- [x] API layer and auth state
 - [ ] Landing Page
 - [ ] Auth
 - [ ] Dashboards
