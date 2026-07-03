@@ -1,6 +1,7 @@
-import { Bell, Home, LogOut } from "lucide-react";
+import { Home, LogOut } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
 
+import { NotificationBell } from "../components/notifications/NotificationBell";
 import { Button } from "../components/ui";
 import { USER_ROLES } from "../constants/roles";
 import { useAuth } from "../hooks/useAuth";
@@ -12,17 +13,20 @@ const navByRole = {
     { label: "Matches", to: "/tenant/matches" },
     { label: "Interests", to: "/tenant/interests" },
     { label: "Chat", to: "/tenant/chat" },
+    { label: "Notifications", to: "/tenant/notifications" },
   ],
   [USER_ROLES.OWNER]: [
     { label: "Dashboard", to: "/owner" },
     { label: "Listings", to: "/owner/listings" },
     { label: "Requests", to: "/owner/requests" },
     { label: "Chat", to: "/owner/chat" },
+    { label: "Notifications", to: "/owner/notifications" },
   ],
   [USER_ROLES.ADMIN]: [
     { label: "Dashboard", to: "/admin" },
     { label: "Users", to: "/admin/users" },
     { label: "Listings", to: "/admin/listings" },
+    { label: "Notifications", to: "/admin/notifications" },
   ],
 };
 
@@ -68,9 +72,7 @@ export function DashboardLayout() {
               <p className="font-semibold text-[var(--color-heading)]">{user?.name}</p>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="secondary" size="sm" type="button">
-                <Bell size={16} />
-              </Button>
+              <NotificationBell />
               <Button variant="ghost" size="sm" type="button" onClick={logout}>
                 <LogOut size={16} />
                 Logout

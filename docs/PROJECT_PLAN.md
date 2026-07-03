@@ -25,7 +25,7 @@
 - [ ] Dashboards
 - [x] Listings
 - [x] Chat
-- [ ] Notifications
+- [x] Notifications
 
 ## Deployment
 

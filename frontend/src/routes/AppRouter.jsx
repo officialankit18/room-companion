@@ -10,6 +10,7 @@ import { ChatPage } from "../pages/chat/ChatPage";
 import { DashboardPlaceholder } from "../pages/DashboardPlaceholder";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from "../pages/LoginPage";
+import { NotificationsPage } from "../pages/notifications/NotificationsPage";
 import { OwnerDashboardPage } from "../pages/owner/OwnerDashboardPage";
 import { OwnerListingsPage } from "../pages/owner/OwnerListingsPage";
 import { OwnerRequestsPage } from "../pages/owner/OwnerRequestsPage";
@@ -55,6 +56,7 @@ export function AppRouter() {
                 path="/tenant/chat"
                 element={<ChatPage />}
               />
+              <Route path="/tenant/notifications" element={<NotificationsPage />} />
             </Route>
           </Route>
 
@@ -70,6 +72,7 @@ export function AppRouter() {
                 path="/owner/chat"
                 element={<ChatPage />}
               />
+              <Route path="/owner/notifications" element={<NotificationsPage />} />
             </Route>
           </Route>
 
@@ -93,6 +96,7 @@ export function AppRouter() {
                   />
                 }
               />
+              <Route path="/admin/notifications" element={<NotificationsPage />} />
             </Route>
           </Route>
 
