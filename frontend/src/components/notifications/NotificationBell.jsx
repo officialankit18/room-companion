@@ -28,7 +28,7 @@ export function NotificationBell() {
       try {
         const response = await notificationApi.getNotifications();
         setNotifications(response.data.notifications.slice(0, 5));
-      } catch (error) {
+      } catch {
         // Header notifications are non-blocking.
       }
     };

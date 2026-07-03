@@ -40,7 +40,7 @@ export function TenantProfilePage() {
           moveInDate: profile.moveInDate?.slice(0, 10),
           preferredRoomType: profile.preferredRoomType || "",
         });
-      } catch (error) {
+      } catch {
         // A missing profile is expected for new tenants.
       } finally {
         setIsLoading(false);
@@ -114,4 +114,3 @@ export function TenantProfilePage() {
     </>
   );
 }
-

@@ -1,16 +1,52 @@
-# React + Vite
+# RoomCompanion Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite frontend for RoomCompanion.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19
+- Vite
+- Tailwind CSS
+- React Router
+- React Hook Form + Zod
+- Axios
+- Socket.IO Client
+- Lucide React
+- React Hot Toast
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+## Environment
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```env
+VITE_API_BASE_URL=http://localhost:5000/api/v1
+VITE_SOCKET_URL=http://localhost:5000
+```
+
+For Vercel, set these same variables in Project Settings > Environment Variables.
+
+## Scripts
+
+```bash
+npm run dev
+npm run build
+npm run preview
+npm run lint
+```
+
+## Vercel
+
+Use these settings when importing the repository:
+
+- Root Directory: `frontend`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+- Install Command: `npm install`
+
+`vercel.json` includes an SPA rewrite so direct visits to dashboard routes still load the React app.

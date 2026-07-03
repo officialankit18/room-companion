@@ -1,10 +1,9 @@
-import { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 
 import { authApi } from "../api/authApi";
+import { AuthContext } from "./auth-context";
 import { tokenStorage } from "./tokenStorage";
-
-export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -37,7 +36,7 @@ export function AuthProvider({ children }) {
         if (isMounted) {
           setUser(response.data.user);
         }
-      } catch (error) {
+      } catch {
         if (isMounted) {
           clearSession();
         }
@@ -72,7 +71,7 @@ export function AuthProvider({ children }) {
       if (tokenStorage.getToken()) {
         await authApi.logout();
       }
-    } catch (error) {
+    } catch {
       // Frontend logout should still complete if the server is unreachable.
     } finally {
       clearSession();
@@ -96,4 +95,3 @@ export function AuthProvider({ children }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-

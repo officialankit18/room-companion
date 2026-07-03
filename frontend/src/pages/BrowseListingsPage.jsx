@@ -39,7 +39,7 @@ export function BrowseListingsPage() {
       try {
         const response = await listingApi.getListings({ limit: 6 });
         setListings(response.data.listings);
-      } catch (error) {
+      } catch {
         setListings(fallbackListings);
         toast.error("Showing sample listings until backend data is available");
       } finally {

@@ -10,7 +10,6 @@ import { AdminUsersPage } from "../pages/admin/AdminUsersPage";
 import { AboutPage } from "../pages/AboutPage";
 import { BrowseListingsPage } from "../pages/BrowseListingsPage";
 import { ChatPage } from "../pages/chat/ChatPage";
-import { DashboardPlaceholder } from "../pages/DashboardPlaceholder";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from "../pages/LoginPage";
 import { NotificationsPage } from "../pages/notifications/NotificationsPage";
