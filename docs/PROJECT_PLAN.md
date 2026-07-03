@@ -34,12 +34,13 @@
 - [ ] Frontend on Vercel
 - [x] MongoDB Atlas
 - [x] Cloudinary
-- [ ] Testing
+- [x] Testing Guide
 
 ## Documentation
 
 - [x] README
 - [x] API Docs
 - [x] DB Schema
+- [x] Manual Testing Guide
 - [x] LLM Prompt Examples
 - [x] System Design

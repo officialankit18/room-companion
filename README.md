@@ -43,3 +43,12 @@ npm run dev
 - Database: MongoDB Atlas
 - Images: Cloudinary
 - Email: Brevo
+
+## Documentation
+
+- Backend API: `docs/BACKEND_API.md`
+- Database schema: `docs/DB_SCHEMA.md`
+- System design: `docs/SYSTEM_DESIGN.md`
+- LLM prompt: `docs/LLM_PROMPT.md`
+- Deployment notes: `docs/DEPLOYMENT.md`
+- Manual testing: `docs/MANUAL_TESTING.md`
