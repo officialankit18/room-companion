@@ -17,6 +17,7 @@ export function ChatPage() {
   const { user } = useAuth();
   const socketRef = useRef(null);
   const bottomRef = useRef(null);
+  const selectedConversationIdRef = useRef(null);
   const [conversations, setConversations] = useState([]);
   const [selectedConversationId, setSelectedConversationId] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -31,6 +32,10 @@ export function ChatPage() {
     [conversations, selectedConversationId]
   );
   const otherParticipant = getOtherParticipant(selectedConversation, user);
+
+  useEffect(() => {
+    selectedConversationIdRef.current = selectedConversationId;
+  }, [selectedConversationId]);
 
   useEffect(() => {
     const loadConversations = async () => {
@@ -59,7 +64,7 @@ export function ChatPage() {
     socket.on("disconnect", () => setIsConnected(false));
     socket.on("socketError", (payload) => toast.error(payload.message));
     socket.on("newMessage", (message) => {
-      if (message.conversationId === selectedConversationId) {
+      if (message.conversationId === selectedConversationIdRef.current) {
         setMessages((currentMessages) => {
           if (currentMessages.some((item) => item._id === message._id)) {
             return currentMessages;
@@ -75,7 +80,7 @@ export function ChatPage() {
     });
     socket.on("stopTyping", () => setTypingUser(null));
     socket.on("messageRead", ({ conversationId }) => {
-      if (conversationId === selectedConversationId) {
+      if (conversationId === selectedConversationIdRef.current) {
         setMessages((currentMessages) =>
           currentMessages.map((message) =>
             message.senderId?._id === user.id || message.senderId === user.id
@@ -91,7 +96,7 @@ export function ChatPage() {
     return () => {
       socket.disconnect();
     };
-  }, [selectedConversationId, user.id]);
+  }, [user.id]);
 
   useEffect(() => {
     if (!selectedConversationId || !socketRef.current) return;

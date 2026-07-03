@@ -7,8 +7,10 @@ import { Message } from "../models/Message.model.js";
 import { AppError } from "../utils/AppError.js";
 
 export const verifyConversationParticipant = (conversation, userId) => {
-  const isTenant = conversation.tenantId.toString() === userId;
-  const isOwner = conversation.ownerId.toString() === userId;
+  const tenantId = conversation.tenantId?._id || conversation.tenantId;
+  const ownerId = conversation.ownerId?._id || conversation.ownerId;
+  const isTenant = tenantId?.toString() === userId;
+  const isOwner = ownerId?.toString() === userId;
 
   if (!isTenant && !isOwner) {
     throw new AppError(CONVERSATION_MESSAGES.ACCESS_DENIED, HTTP_STATUS.FORBIDDEN);
@@ -98,4 +100,3 @@ export const markConversationRead = async ({ conversationId, userId, role }) => 
 
   return conversation;
 };
-
