@@ -62,7 +62,9 @@ export function ChatPage() {
 
     socket.on("connect", () => setIsConnected(true));
     socket.on("disconnect", () => setIsConnected(false));
-    socket.on("socketError", (payload) => toast.error(payload.message));
+    socket.on("socketError", (payload) =>
+      toast.error(payload.message, { id: `socket-error-${payload.message}` })
+    );
     socket.on("newMessage", (message) => {
       if (message.conversationId === selectedConversationIdRef.current) {
         setMessages((currentMessages) => {
@@ -133,10 +135,18 @@ export function ChatPage() {
 
     if (!trimmedMessage || !selectedConversationId) return;
 
-    socketRef.current?.emit("sendMessage", {
-      conversationId: selectedConversationId,
-      message: trimmedMessage,
-    });
+    socketRef.current?.emit(
+      "sendMessage",
+      {
+        conversationId: selectedConversationId,
+        message: trimmedMessage,
+      },
+      (response) => {
+        if (!response?.success) {
+          toast.error(response?.message || "Message could not be sent");
+        }
+      }
+    );
     socketRef.current?.emit("stopTyping", { conversationId: selectedConversationId });
     setMessageText("");
   };

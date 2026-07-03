@@ -56,7 +56,7 @@ export const registerChatSocketHandlers = (io, socket) => {
     });
   });
 
-  socket.on("sendMessage", async ({ conversationId, message }) => {
+  socket.on("sendMessage", async ({ conversationId, message }, acknowledge) => {
     try {
       const conversation = await getConversationDetails({ conversationId, userId });
       const receiverId =
@@ -71,15 +71,17 @@ export const registerChatSocketHandlers = (io, socket) => {
         receiverOnline,
       });
 
-      io.to(conversationRoom(conversationId)).emit("newMessage", savedMessage);
+      socket.emit("newMessage", savedMessage);
       io.to(userRoom(receiverId)).emit("newMessage", savedMessage);
       io.to(userRoom(receiverId)).emit("notification", {
         type: "NEW_MESSAGE",
         conversationId,
         messageId: savedMessage._id,
       });
+      acknowledge?.({ success: true, messageId: savedMessage._id });
     } catch (error) {
       emitSocketError(socket, error.message);
+      acknowledge?.({ success: false, message: error.message });
     }
   });
 
