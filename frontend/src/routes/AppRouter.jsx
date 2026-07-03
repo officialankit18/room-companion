@@ -4,9 +4,14 @@ import { AuthProvider } from "../auth/AuthContext";
 import { USER_ROLES } from "../constants/roles";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
+import { AboutPage } from "../pages/AboutPage";
+import { BrowseListingsPage } from "../pages/BrowseListingsPage";
 import { DashboardPlaceholder } from "../pages/DashboardPlaceholder";
 import { LandingPage } from "../pages/LandingPage";
+import { LoginPage } from "../pages/LoginPage";
 import { PlaceholderPage } from "../pages/PlaceholderPage";
+import { RegisterPage } from "../pages/RegisterPage";
+import { VerifyEmailPage } from "../pages/VerifyEmailPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export function AppRouter() {
@@ -18,40 +23,15 @@ export function AppRouter() {
             <Route index element={<LandingPage />} />
             <Route
               path="/browse"
-              element={
-                <PlaceholderPage
-                  title="Browse listings"
-                  description="Listing search, filters, and AI match ranking will be connected in the tenant phases."
-                />
-              }
+              element={<BrowseListingsPage />}
             />
             <Route
               path="/about"
-              element={
-                <PlaceholderPage
-                  title="About RoomCompanion"
-                  description="A professional room discovery platform built around compatibility, owner approval, and chat."
-                />
-              }
+              element={<AboutPage />}
             />
-            <Route
-              path="/login"
-              element={
-                <PlaceholderPage
-                  title="Login"
-                  description="Authentication screens will be implemented in the public pages phase."
-                />
-              }
-            />
-            <Route
-              path="/register"
-              element={
-                <PlaceholderPage
-                  title="Register"
-                  description="Tenant and owner registration will connect to the backend OTP verification flow."
-                />
-              }
-            />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify-email" element={<VerifyEmailPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={[USER_ROLES.TENANT]} />}>

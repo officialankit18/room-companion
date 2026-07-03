@@ -18,8 +18,8 @@
 - [x] Frontend setup
 - [x] UI system
 - [x] API layer and auth state
-- [ ] Landing Page
-- [ ] Auth
+- [x] Landing Page
+- [x] Auth
 - [ ] Dashboards
 - [ ] Listings
 - [ ] Chat
