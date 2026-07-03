@@ -6,6 +6,7 @@ import { DashboardLayout } from "../layouts/DashboardLayout";
 import { PublicLayout } from "../layouts/PublicLayout";
 import { AboutPage } from "../pages/AboutPage";
 import { BrowseListingsPage } from "../pages/BrowseListingsPage";
+import { ChatPage } from "../pages/chat/ChatPage";
 import { DashboardPlaceholder } from "../pages/DashboardPlaceholder";
 import { LandingPage } from "../pages/LandingPage";
 import { LoginPage } from "../pages/LoginPage";
@@ -52,12 +53,7 @@ export function AppRouter() {
               <Route path="/tenant/interests" element={<TenantInterestsPage />} />
               <Route
                 path="/tenant/chat"
-                element={
-                  <DashboardPlaceholder
-                    title="Tenant chat"
-                    description="Realtime chat will be connected in the chat frontend phase."
-                  />
-                }
+                element={<ChatPage />}
               />
             </Route>
           </Route>
@@ -72,12 +68,7 @@ export function AppRouter() {
               <Route path="/owner/requests" element={<OwnerRequestsPage />} />
               <Route
                 path="/owner/chat"
-                element={
-                  <DashboardPlaceholder
-                    title="Owner chat"
-                    description="Realtime chat will be connected in the chat frontend phase."
-                  />
-                }
+                element={<ChatPage />}
               />
             </Route>
           </Route>

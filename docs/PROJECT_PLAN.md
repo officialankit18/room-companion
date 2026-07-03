@@ -24,7 +24,7 @@
 - [x] Owner Dashboard
 - [ ] Dashboards
 - [x] Listings
-- [ ] Chat
+- [x] Chat
 - [ ] Notifications
 
 ## Deployment
