@@ -63,7 +63,7 @@ export function LandingPage() {
               <div className="mt-5 flex items-start justify-between gap-4">
                 <div>
                   <p className="font-semibold text-[var(--color-heading)]">Private Room in Noida</p>
-                  <p className="mt-1 text-sm text-[var(--color-body)]">Sector 62 · ₹9,000/month</p>
+                  <p className="mt-1 text-sm text-[var(--color-body)]">Sector 62 / Rs. 9,000/month</p>
                 </div>
                 <Badge variant="success">94% Match</Badge>
               </div>

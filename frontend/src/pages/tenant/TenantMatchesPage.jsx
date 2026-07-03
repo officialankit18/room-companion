@@ -101,8 +101,8 @@ export function TenantMatchesPage() {
                     <p className="flex items-center gap-2"><CalendarDays size={16} /> {new Date(listing.availableFrom).toLocaleDateString()}</p>
                   </div>
                   <p className="mt-4 text-sm leading-6 text-[var(--color-body)]">{compatibility.explanation}</p>
-                  <div className="mt-5 flex items-center justify-between gap-3">
-                    <p className="text-lg font-bold text-[var(--color-heading)]">₹{listing.rent}/mo</p>
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-lg font-bold text-[var(--color-heading)]">Rs. {listing.rent}/mo</p>
                     <Button type="button" onClick={() => sendInterest(listing._id)}>
                       <HeartHandshake size={18} /> Interested
                     </Button>
@@ -118,4 +118,3 @@ export function TenantMatchesPage() {
     </>
   );
 }
-

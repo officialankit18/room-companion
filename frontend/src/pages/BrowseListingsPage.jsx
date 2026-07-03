@@ -121,14 +121,14 @@ export function BrowseListingsPage() {
                     <MapPin size={16} /> {listing.location.locality}, {listing.location.city}
                   </p>
                   <p className="flex items-center gap-2">
-                    <Home size={16} /> {listing.roomType} · {listing.furnishingStatus}
+                    <Home size={16} /> {listing.roomType} / {listing.furnishingStatus}
                   </p>
                   <p className="flex items-center gap-2">
                     <CalendarDays size={16} /> Available {new Date(listing.availableFrom).toLocaleDateString()}
                   </p>
                 </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <p className="text-lg font-bold text-[var(--color-heading)]">₹{listing.rent}/mo</p>
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-lg font-bold text-[var(--color-heading)]">Rs. {listing.rent}/mo</p>
                   <Button variant="secondary" size="sm" type="button">
                     View
                   </Button>
@@ -146,4 +146,3 @@ export function BrowseListingsPage() {
     </section>
   );
 }
-

@@ -26,7 +26,7 @@ export function Button({
   return (
     <Component
       className={cn(
-        "focus-ring inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition disabled:cursor-not-allowed disabled:opacity-60",
+        "focus-ring inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition disabled:cursor-not-allowed disabled:opacity-60",
         variants[variant],
         sizes[size],
         className
@@ -37,4 +37,3 @@ export function Button({
     </Component>
   );
 }
-

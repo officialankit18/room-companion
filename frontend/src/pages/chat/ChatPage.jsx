@@ -166,7 +166,7 @@ export function ChatPage() {
       ) : conversations.length ? (
         <div className="grid min-h-[620px] gap-5 lg:grid-cols-[320px_1fr]">
           <Card className="p-3">
-            <div className="space-y-2">
+            <div className="max-h-72 space-y-2 overflow-y-auto lg:max-h-none">
               {conversations.map((conversation) => {
                 const participant = getOtherParticipant(conversation, user);
                 const unread =
@@ -187,7 +187,7 @@ export function ChatPage() {
                     onClick={() => setSelectedConversationId(conversation._id)}
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <p className="font-semibold text-[var(--color-heading)]">{participant?.name}</p>
+                      <p className="truncate font-semibold text-[var(--color-heading)]">{participant?.name}</p>
                       {unread ? (
                         <span className="rounded-full bg-[var(--color-primary)] px-2 py-0.5 text-xs font-bold text-white">
                           {unread}
@@ -203,12 +203,12 @@ export function ChatPage() {
             </div>
           </Card>
 
-          <Card className="flex min-h-[620px] flex-col p-0">
+          <Card className="flex min-h-[520px] flex-col p-0 lg:min-h-[620px]">
             <div className="border-b border-[var(--color-border)] p-5">
               <h2 className="font-semibold text-[var(--color-heading)]">
                 {otherParticipant?.name || "Conversation"}
               </h2>
-              <p className="mt-1 text-sm text-[var(--color-body)]">
+              <p className="mt-1 line-clamp-2 text-sm text-[var(--color-body)]">
                 {selectedConversation?.listingId?.title}
               </p>
             </div>
@@ -236,7 +236,7 @@ export function ChatPage() {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
-                          {isOwn ? ` · ${message.isRead ? "Read" : message.status}` : ""}
+                          {isOwn ? ` / ${message.isRead ? "Read" : message.status}` : ""}
                         </p>
                       </div>
                     </div>
@@ -250,14 +250,14 @@ export function ChatPage() {
             </div>
 
             <form className="border-t border-[var(--color-border)] p-4" onSubmit={sendMessage}>
-              <div className="flex gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Input
                   aria-label="Message"
                   placeholder="Type your message"
                   value={messageText}
                   onChange={(event) => handleTyping(event.target.value)}
                 />
-                <Button type="submit" disabled={!messageText.trim()}>
+                <Button type="submit" disabled={!messageText.trim()} className="sm:w-auto">
                   <Send size={18} />
                   Send
                 </Button>
@@ -274,4 +274,3 @@ export function ChatPage() {
     </>
   );
 }
-

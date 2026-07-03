@@ -126,7 +126,7 @@ export function OwnerListingsPage() {
             onChange={(event) => setImages(Array.from(event.target.files).slice(0, 5))}
           />
           <div className="flex items-end">
-            <Button type="submit" disabled={isSubmitting}>
+            <Button className="w-full md:w-auto" type="submit" disabled={isSubmitting}>
               <Plus size={18} />
               {isSubmitting ? "Creating..." : "Create listing"}
             </Button>
@@ -143,13 +143,13 @@ export function OwnerListingsPage() {
           {listings.map((listing) => (
             <Card key={listing._id}>
               <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                <div>
+                <div className="min-w-0">
                   <h2 className="font-semibold text-[var(--color-heading)]">{listing.title}</h2>
                   <p className="mt-1 text-sm text-[var(--color-body)]">
-                    {listing.location.locality}, {listing.location.city} · ₹{listing.rent}/mo · {listing.status}
+                    {listing.location.locality}, {listing.location.city} / Rs. {listing.rent}/mo / {listing.status}
                   </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <Button variant="secondary" size="sm" type="button" onClick={() => markFilled(listing._id)}>
                     <CheckCircle2 size={16} /> Filled
                   </Button>
@@ -167,4 +167,3 @@ export function OwnerListingsPage() {
     </>
   );
 }
-

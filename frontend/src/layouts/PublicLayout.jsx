@@ -44,6 +44,13 @@ export function PublicLayout() {
             </Link>
           </div>
         </div>
+        <nav className="page-container flex gap-2 overflow-x-auto pb-3 text-sm font-semibold text-[var(--color-body)] md:hidden">
+          {navItems.map((item) => (
+            <Link key={item.to} to={item.to} className="shrink-0 rounded-xl px-3 py-2 hover:bg-slate-50 hover:text-[var(--color-primary)]">
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </header>
 
       <main>
@@ -52,4 +59,3 @@ export function PublicLayout() {
     </div>
   );
 }
-

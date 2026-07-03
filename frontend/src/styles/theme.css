@@ -48,6 +48,16 @@ textarea {
   font: inherit;
 }
 
+img,
+svg {
+  flex-shrink: 0;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 button {
   cursor: pointer;
 }
@@ -88,4 +98,3 @@ a {
     width: min(100% - 24px, 1280px);
   }
 }
-

@@ -72,10 +72,10 @@ export function AdminListingsPage() {
           {listings.map((listing) => (
             <Card key={listing._id}>
               <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
-                <div>
+                <div className="min-w-0">
                   <h2 className="font-semibold text-[var(--color-heading)]">{listing.title}</h2>
                   <p className="mt-1 text-sm text-[var(--color-body)]">
-                    {listing.location?.locality}, {listing.location?.city} · Owner: {listing.ownerId?.name || "N/A"}
+                    {listing.location?.locality}, {listing.location?.city} / Owner: {listing.ownerId?.name || "N/A"}
                   </p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
@@ -102,4 +102,3 @@ export function AdminListingsPage() {
     </>
   );
 }
-

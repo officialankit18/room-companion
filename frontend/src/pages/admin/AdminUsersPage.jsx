@@ -64,11 +64,11 @@ export function AdminUsersPage() {
           {users.map((user) => (
             <Card key={user._id}>
               <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                <div>
+                <div className="min-w-0">
                   <h2 className="font-semibold text-[var(--color-heading)]">{user.name}</h2>
-                  <p className="mt-1 text-sm text-[var(--color-body)]">{user.email}</p>
+                  <p className="mt-1 break-all text-sm text-[var(--color-body)]">{user.email}</p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="indigo">{user.role}</Badge>
                   <Badge variant={user.isActive ? "success" : "danger"}>
                     {user.isActive ? "Active" : "Inactive"}
@@ -87,4 +87,3 @@ export function AdminUsersPage() {
     </>
   );
 }
-

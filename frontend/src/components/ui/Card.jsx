@@ -6,8 +6,8 @@ export function Card({ as: Component = "div", className, children }) {
 
 export function CardHeader({ title, description, action }) {
   return (
-    <div className="mb-5 flex items-start justify-between gap-4">
-      <div>
+    <div className="mb-5 flex flex-col items-start justify-between gap-4 sm:flex-row">
+      <div className="min-w-0">
         <h2 className="text-lg font-semibold text-[var(--color-heading)]">{title}</h2>
         {description ? <p className="mt-1 text-sm text-[var(--color-body)]">{description}</p> : null}
       </div>

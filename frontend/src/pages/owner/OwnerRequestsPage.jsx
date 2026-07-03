@@ -71,7 +71,7 @@ export function OwnerRequestsPage() {
                     <Badge variant={statusVariant[request.status] || "neutral"}>{request.status}</Badge>
                   </div>
                   <p className="mt-1 text-sm text-[var(--color-body)]">
-                    Interested in {request.listingId?.title} · {request.listingId?.location?.locality}, {request.listingId?.location?.city}
+                    Interested in {request.listingId?.title} / {request.listingId?.location?.locality}, {request.listingId?.location?.city}
                   </p>
                 </div>
                 {request.status === "PENDING" ? (
@@ -94,4 +94,3 @@ export function OwnerRequestsPage() {
     </>
   );
 }
-

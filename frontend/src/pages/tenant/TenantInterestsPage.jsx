@@ -51,7 +51,7 @@ export function TenantInterestsPage() {
                     {interest.listingId?.title}
                   </h2>
                   <p className="mt-1 text-sm text-[var(--color-body)]">
-                    Owner: {interest.ownerId?.name} · Sent {new Date(interest.createdAt).toLocaleDateString()}
+                    Owner: {interest.ownerId?.name} / Sent {new Date(interest.createdAt).toLocaleDateString()}
                   </p>
                 </div>
                 <Badge variant={statusVariant[interest.status] || "neutral"}>{interest.status}</Badge>
@@ -68,4 +68,3 @@ export function TenantInterestsPage() {
     </>
   );
 }
-
