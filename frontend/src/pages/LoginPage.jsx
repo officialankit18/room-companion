@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { Button, Card, Input } from "../components/ui";
 import { USER_ROLES } from "../constants/roles";
@@ -18,7 +18,9 @@ const dashboardByRole = {
 export function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { login } = useAuth();
+  const roleHint = searchParams.get("role");
   const {
     register,
     handleSubmit,
@@ -50,7 +52,11 @@ export function LoginPage() {
           </p>
           <h1 className="mt-2 text-3xl font-bold text-[var(--color-heading)]">Login</h1>
           <p className="mt-2 text-sm leading-6 text-[var(--color-body)]">
-            Access your RoomCompanion workspace.
+            {roleHint === USER_ROLES.OWNER
+              ? "Access your owner workspace and manage room requests."
+              : roleHint === USER_ROLES.TENANT
+                ? "Access your tenant workspace and find compatible rooms."
+                : "Access your RoomCompanion workspace."}
           </p>
         </div>
 
@@ -78,4 +84,3 @@ export function LoginPage() {
     </section>
   );
 }
-

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserPlus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 
 import { authApi } from "../api/authApi";
 import { Button, Card, Input, Select } from "../components/ui";
@@ -10,6 +10,8 @@ import { registerSchema } from "../schemas/authSchemas";
 
 export function RegisterPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const roleFromQuery = searchParams.get("role");
   const {
     register,
     handleSubmit,
@@ -20,7 +22,7 @@ export function RegisterPage() {
       name: "",
       email: "",
       password: "",
-      role: "TENANT",
+      role: roleFromQuery === "OWNER" ? "OWNER" : "TENANT",
     },
   });
 
@@ -76,4 +78,3 @@ export function RegisterPage() {
     </section>
   );
 }
-
