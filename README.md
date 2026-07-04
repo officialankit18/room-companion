@@ -35,7 +35,6 @@ The platform focuses on practical matching instead of random room browsing. Tena
 | Frontend | https://roomcompanion-two.vercel.app |
 | Backend | https://dimgrey-herring-526627.hostingersite.com |
 | Main Repository | https://github.com/officialankit18/room-companion |
-| Frontend-only Repository | https://github.com/officialankit18/roomcompanion |
 
 ## Key Features
 
