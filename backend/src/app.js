@@ -19,7 +19,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: appConfig.frontendUrls,
+    origin(origin, callback) {
+      if (appConfig.isAllowedOrigin(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Origin not allowed by CORS"));
+    },
     credentials: true,
   })
 );
