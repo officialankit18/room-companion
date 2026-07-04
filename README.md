@@ -10,7 +10,6 @@
     ·
     <a href="https://dimgrey-herring-526627.hostingersite.com">Live Backend</a>
     ·
-    <a href="https://github.com/officialankit18/roomcompanion">Frontend Repo</a>
   </p>
 
   <p>
