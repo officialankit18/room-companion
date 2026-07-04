@@ -17,13 +17,21 @@ const frontendUrls = parseCsv(
 const isLocalFrontendOrigin = (origin) =>
   /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
 
+const isRoomCompanionVercelOrigin = (origin) =>
+  /^https:\/\/roomcompanion[-\w]*\.vercel\.app$/.test(origin);
+
 export const appConfig = {
   nodeEnv: process.env.NODE_ENV || "development",
   port: Number(process.env.PORT) || 5000,
   frontendUrl: frontendUrls[0],
   frontendUrls,
   isAllowedOrigin(origin) {
-    return !origin || frontendUrls.includes(origin) || isLocalFrontendOrigin(origin);
+    return (
+      !origin ||
+      frontendUrls.includes(origin) ||
+      isLocalFrontendOrigin(origin) ||
+      isRoomCompanionVercelOrigin(origin)
+    );
   },
   backendUrl: process.env.BACKEND_URL || "http://localhost:5000",
 };
